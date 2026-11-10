@@ -1,0 +1,31 @@
+# Lab remaps issuer + redirect onto loopback-assigned ports. Pin ships
+# admin@wpmgr.dev / password and client secret wpmgr-oidc-dev-secret.
+issuer: http://dex:5556/dex
+
+storage:
+  type: sqlite3
+  config:
+    file: /var/dex/dex.db
+
+web:
+  http: 0.0.0.0:5556
+
+telemetry:
+  http: 0.0.0.0:5558
+
+oauth2:
+  skipApprovalScreen: true
+
+staticClients:
+  - id: wpmgr
+    name: WPMgr
+    secret: wpmgr-oidc-dev-secret
+    redirectURIs:
+      - http://127.0.0.1:18210/auth/oidc/callback
+
+enablePasswordDB: true
+staticPasswords:
+  - email: "admin@wpmgr.dev"
+    hash: "$2a$10$Dfir7c2N/g9wBJ8QaLJQceBQoDM0JiBSEvmiQWpztFLtvaBLuePpa"
+    username: "admin"
+    userID: "00000000-0000-0000-0000-000000000001"
